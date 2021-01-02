@@ -1,15 +1,17 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
+[ext_resource path="res://s4xstuff/stuffsheet.png" type="Texture" id=1]
 [ext_resource path="res://assets/Standing/down left.png" type="Texture" id=2]
 [ext_resource path="res://assets/Running/down left.png" type="Texture" id=3]
 [ext_resource path="res://KinematicBody2D.gd" type="Script" id=4]
-[ext_resource path="res://s4xstuff/c29.png" type="Texture" id=5]
+[ext_resource path="res://bigcuu.gd" type="Script" id=5]
 [ext_resource path="res://hat.gd" type="Script" id=6]
+[ext_resource path="res://bigchuu.gd" type="Script" id=7]
 
 [sub_resource type="TileSet" id=1]
 
 [sub_resource type="CircleShape2D" id=7]
-radius = 294.164
+radius = 90.427
 
 [sub_resource type="Animation" id=2]
 resource_name = "New Anim"
@@ -70,9 +72,10 @@ tile_set = SubResource( 1 )
 format = 1
 
 [node name="hat" type="Sprite" parent="."]
-position = Vector2( 2992.59, 1125.66 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 5 )
+position = Vector2( 2992.59, 1117.66 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 0, 400, 200, 200 )
 script = ExtResource( 6 )
 __meta__ = {
 "_edit_group_": true
@@ -83,44 +86,72 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hat/StaticBody2D"]
 shape = SubResource( 7 )
 
-[node name="hat3" type="Sprite" parent="."]
-position = Vector2( 2087.5, 576.949 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 5 )
+[node name="chuu" type="Sprite" parent="."]
+position = Vector2( 3030.65, 2154.65 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 200, 600, 200, 200 )
 script = ExtResource( 6 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="StaticBody2D" type="StaticBody2D" parent="hat3"]
+[node name="StaticBody2D" type="StaticBody2D" parent="chuu"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hat3/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="chuu/StaticBody2D"]
 shape = SubResource( 7 )
 
-[node name="hat2" type="Sprite" parent="."]
-position = Vector2( 2025.27, 1906.31 )
-scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 5 )
-script = ExtResource( 6 )
-__meta__ = {
-"_edit_group_": true
-}
+[node name="bigchuu" type="KinematicBody2D" parent="."]
+position = Vector2( 3030.65, 2154.65 )
+scale = Vector2( 2, 2 )
+script = ExtResource( 7 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="hat2"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hat2/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bigchuu"]
 shape = SubResource( 7 )
+disabled = true
+
+[node name="body" type="Sprite" parent="bigchuu"]
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 200, 600, 200, 200 )
+script = ExtResource( 5 )
+
+[node name="face1" type="Sprite" parent="bigchuu"]
+position = Vector2( -4.20142, 15.9399 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 700, 400, 100, 100 )
+
+[node name="face2" type="Sprite" parent="bigchuu"]
+visible = false
+position = Vector2( -2.51978, 18.4624 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 600, 500, 100, 100 )
+
+[node name="face3" type="Sprite" parent="bigchuu"]
+visible = false
+position = Vector2( 19.3435, 34.4395 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 400, 400, 200, 100 )
+
+[node name="Timer" type="Timer" parent="bigchuu"]
+wait_time = 5.0
+autostart = true
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
-position = Vector2( -57.144, 529.794 )
-scale = Vector2( 20, 20 )
+position = Vector2( 422.314, 1710.46 )
+scale = Vector2( 10, 10 )
 script = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="KinematicBody2D"]
-position = Vector2( 48.2912, 47.6758 )
-texture = ExtResource( 3 )
+position = Vector2( 48.2912, 46.1656 )
+texture = ExtResource( 1 )
 hframes = 4
 frame = 1
+region_enabled = true
+region_rect = Rect2( 0, 200, 400, 200 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="KinematicBody2D"]
 "anims/New Anim" = SubResource( 2 )
@@ -137,4 +168,5 @@ scale = Vector2( 1, 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/Area2D"]
 shape = SubResource( 6 )
+[connection signal="timeout" from="bigchuu/Timer" to="bigchuu" method="_on_Timer_timeout"]
 [connection signal="body_entered" from="KinematicBody2D/Area2D" to="KinematicBody2D" method="_on_Area2D_body_entered"]

@@ -79,9 +79,11 @@ func _on_Area2D_body_entered(body):
 		var target = self
 		var source = body.get_parent()
 		source.get_parent().remove_child(source)
+		print(source.get_parent())
 		target.add_child(source)
 		source.set_owner(target)
-		
+		print(source.get_parent())
+		source.position=Vector2(0,0)
 		#var hat = body.get_parent().duplicate()
 		#$hatcontainer.add_child(body.get_parent().duplicate())
 		#body.get_parent().get_parent().remove_child(body.get_parent())
