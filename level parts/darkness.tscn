@@ -1,0 +1,6 @@
+[gd_scene format=2]
+
+[node name="darkness" type="CanvasModulate"]
+visible = false
+light_mask = 0
+color = Color( 0.027451, 0.027451, 0.027451, 1 )

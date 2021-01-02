@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://level parts/phone.gd" type="Script" id=1]
+[ext_resource path="res://s4xstuff/Phone_Vibrating-Sound_Explorer-738835678.wav" type="AudioStream" id=2]
+[ext_resource path="res://s4xstuff/phone.png" type="Texture" id=3]
+[ext_resource path="res://level parts/phonelight.png" type="Texture" id=4]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 22.0895
+
+[node name="phone" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+
+[node name="Light2D" type="Light2D" parent="."]
+texture = ExtResource( 4 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource( 1 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." groups=[
+"sounds",
+]]
+stream = ExtResource( 2 )
+autoplay = true
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

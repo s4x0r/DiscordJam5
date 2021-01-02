@@ -1,0 +1,266 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://level parts/level controller.gd" type="Script" id=1]
+[ext_resource path="res://s4xstuff/dmgindicator.png" type="Texture" id=2]
+[ext_resource path="res://s4xstuff/Thunder_HD-Mark_DiAngelo-587966950.wav" type="AudioStream" id=3]
+[ext_resource path="res://s4xstuff/Rain_Inside_House-Mark_DiAngelo-323934112.wav" type="AudioStream" id=4]
+[ext_resource path="res://s4xstuff/indicator light.png" type="Texture" id=5]
+[ext_resource path="res://level parts/darkness.tscn" type="PackedScene" id=6]
+[ext_resource path="res://s4xstuff/phonelarge.png" type="Texture" id=7]
+[ext_resource path="res://s4xstuff/msgbubble.png" type="Texture" id=8]
+
+[node name="level controller" type="Control"]
+light_mask = 0
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -128.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="thunder" type="AudioStreamPlayer" parent="Control" groups=[
+"sounds",
+]]
+stream = ExtResource( 3 )
+
+[node name="rain" type="AudioStreamPlayer" parent="Control" groups=[
+"sounds",
+]]
+stream = ExtResource( 4 )
+autoplay = true
+
+[node name="Timer" type="Timer" parent="Control"]
+
+[node name="Sprite" type="Sprite" parent="Control"]
+light_mask = 2
+position = Vector2( 64, 64 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 2 )
+vframes = 3
+hframes = 5
+
+[node name="Light2D" type="Light2D" parent="Control/Sprite"]
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 5 )
+energy = 1.27
+mode = 3
+range_item_cull_mask = 2
+
+[node name="darkness" parent="Control" instance=ExtResource( 6 )]
+visible = true
+light_mask = 1
+
+[node name="gameover" type="Panel" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -512.0
+margin_top = -300.0
+margin_right = 512.0
+margin_bottom = 300.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="gameover"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -160.0
+margin_top = -28.0
+margin_right = -96.0
+margin_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_scale = Vector2( 5, 5 )
+custom_colors/font_color = Color( 0.827451, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0.341176, 0, 0, 1 )
+text = "YOU DIED"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="gameover"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 256.0
+margin_top = -200.0
+margin_right = -256.0
+margin_bottom = -152.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.0
+custom_constants/separation = 16
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="mainmenubutton" type="Button" parent="gameover/HBoxContainer"]
+margin_right = 238.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="gameover/HBoxContainer/mainmenubutton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -119.0
+margin_top = -40.0
+margin_right = 121.0
+margin_bottom = 40.0
+text = "MAIN MENU"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSeparator" type="VSeparator" parent="gameover/HBoxContainer"]
+margin_left = 254.0
+margin_right = 258.0
+margin_bottom = 48.0
+
+[node name="retrybutton" type="Button" parent="gameover/HBoxContainer"]
+margin_left = 274.0
+margin_right = 512.0
+margin_bottom = 48.0
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="gameover/HBoxContainer/retrybutton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -120.0
+margin_top = -40.0
+margin_right = 120.0
+margin_bottom = 40.0
+text = "RETRY LEVEL"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="level complete" type="Panel" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="level complete"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -128.0
+margin_top = -284.0
+margin_right = 297.0
+margin_bottom = 466.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 7 )
+stretch_mode = 5
+
+[node name="TextureRect" type="TextureRect" parent="level complete/TextureRect"]
+margin_left = 80.0
+margin_top = 186.667
+margin_right = 405.0
+margin_bottom = 311.667
+texture = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="level complete/TextureRect/TextureRect"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 27.0
+margin_top = 27.0
+margin_right = -146.0
+margin_bottom = -52.0
+rect_scale = Vector2( 1.75, 1.75 )
+text = "Level complete!!"
+align = 1
+valign = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="level complete"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -256.0
+margin_top = -120.0
+margin_right = 256.0
+margin_bottom = -56.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 20
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="mainmenu" type="Button" parent="level complete/HBoxContainer"]
+margin_right = 246.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="level complete/HBoxContainer/mainmenu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "MAIN MENU"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VSeparator" type="VSeparator" parent="level complete/HBoxContainer"]
+visible = false
+margin_left = 254.0
+margin_right = 258.0
+margin_bottom = 80.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="nextlevel" type="Button" parent="level complete/HBoxContainer"]
+margin_left = 266.0
+margin_right = 512.0
+margin_bottom = 64.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label2" type="Label" parent="level complete/HBoxContainer/nextlevel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "NEXT LEVEL"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="finished" from="Control/thunder" to="." method="_on_thunder_finished"]
+[connection signal="timeout" from="Control/Timer" to="." method="_on_Timer_timeout"]
+[connection signal="pressed" from="gameover/HBoxContainer/mainmenubutton" to="." method="_on_mainmenubutton_pressed"]
+[connection signal="pressed" from="gameover/HBoxContainer/retrybutton" to="." method="_on_retrybutton_pressed"]
+[connection signal="pressed" from="level complete/HBoxContainer/mainmenu" to="." method="_on_mainmenubutton_pressed"]
+[connection signal="pressed" from="level complete/HBoxContainer/nextlevel" to="." method="_on_nextlevel_pressed"]
