@@ -1,11 +1,15 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://assets/sample.png" type="Texture" id=1]
 [ext_resource path="res://assets/Standing/down left.png" type="Texture" id=2]
 [ext_resource path="res://assets/Running/down left.png" type="Texture" id=3]
 [ext_resource path="res://KinematicBody2D.gd" type="Script" id=4]
+[ext_resource path="res://s4xstuff/c29.png" type="Texture" id=5]
+[ext_resource path="res://hat.gd" type="Script" id=6]
 
 [sub_resource type="TileSet" id=1]
+
+[sub_resource type="CircleShape2D" id=7]
+radius = 294.164
 
 [sub_resource type="Animation" id=2]
 resource_name = "New Anim"
@@ -54,21 +58,66 @@ tracks/1/keys = {
 "values": [ 0, 1, 2, 2, 3 ]
 }
 
+[sub_resource type="CapsuleShape2D" id=6]
+radius = 8.56372
+height = 12.8229
+
 [node name="Node2D" type="Node2D"]
+scale = Vector2( 0.125, 0.125 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 1 )
 format = 1
 
-[node name="sample" type="Sprite" parent="."]
-position = Vector2( 464, 262 )
-texture = ExtResource( 1 )
+[node name="hat" type="Sprite" parent="."]
+position = Vector2( 2992.59, 1125.66 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="hat"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hat/StaticBody2D"]
+shape = SubResource( 7 )
+
+[node name="hat3" type="Sprite" parent="."]
+position = Vector2( 2087.5, 576.949 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="hat3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hat3/StaticBody2D"]
+shape = SubResource( 7 )
+
+[node name="hat2" type="Sprite" parent="."]
+position = Vector2( 2025.27, 1906.31 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="StaticBody2D" type="StaticBody2D" parent="hat2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hat2/StaticBody2D"]
+shape = SubResource( 7 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+position = Vector2( -57.144, 529.794 )
+scale = Vector2( 20, 20 )
 script = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="KinematicBody2D"]
-position = Vector2( 2.3811, 0 )
+position = Vector2( 48.2912, 47.6758 )
 texture = ExtResource( 3 )
 hframes = 4
 frame = 1
@@ -77,3 +126,15 @@ frame = 1
 "anims/New Anim" = SubResource( 2 )
 anims/dl = SubResource( 3 )
 anims/dlwalking = SubResource( 4 )
+
+[node name="hatcontainer" type="Node2D" parent="KinematicBody2D"]
+position = Vector2( 47.0445, 32.9815 )
+scale = Vector2( 81475.8, -15034.5 )
+
+[node name="Area2D" type="Area2D" parent="KinematicBody2D"]
+position = Vector2( 47.574, 43.8322 )
+scale = Vector2( 1, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/Area2D"]
+shape = SubResource( 6 )
+[connection signal="body_entered" from="KinematicBody2D/Area2D" to="KinematicBody2D" method="_on_Area2D_body_entered"]

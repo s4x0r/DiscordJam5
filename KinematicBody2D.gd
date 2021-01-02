@@ -7,7 +7,7 @@ var crowbar = false
 
 const GRAVITY = 200.0
 const WALK_SPEED = 3.5
-const FRICTION = 0.95	#Friction mechanism may be improved, see line 38
+const FRICTION = 0.99	#Friction mechanism may be improved, see line 38
 var collision
 var velocity = Vector2()
 
@@ -72,3 +72,23 @@ func _physics_process(delta):
 				
 		velocity = -velocity*2	#Player bounces in opposite direction
 		#move_and_collide(velocity)
+
+
+func _on_Area2D_body_entered(body):
+	if body.get_parent().get_parent() != self:
+		var target = self
+		var source = body.get_parent()
+		source.get_parent().remove_child(source)
+		target.add_child(source)
+		source.set_owner(target)
+		
+		#var hat = body.get_parent().duplicate()
+		#$hatcontainer.add_child(body.get_parent().duplicate())
+		#body.get_parent().get_parent().remove_child(body.get_parent())
+		#hat.position=$hatcontainer.position
+		#hat.bump($hatcontainer.get_child_count())
+		#hat.show()
+
+
+		body.get_parent().bump($hatcontainer.get_child_count())
+	pass # Replace with function body.
